@@ -1,0 +1,49 @@
+edge-rtr02: changed, +1 -1 lines
+  ATTENTION + add group=full name=support password=<redacted>
+  ATTENTION - set telnet disabled=yes
+  --- baseline/edge-rtr02
+  +++ current/edge-rtr02
+  @@ -11,3 +11,2 @@
+   /ip service
+  -set telnet disabled=yes
+   set ftp disabled=yes
+  @@ -22 +21,2 @@
+   add group=full name=netops password=<redacted>
+  +add group=full name=support password=<redacted>
+edge-sw01: changed, +5 -3 lines
+  ATTENTION + enable password <redacted>
+  ATTENTION + username tempvendor privilege 15 password 0 <redacted>
+  ATTENTION + ip http server
+  ATTENTION + snmp-server community public RO
+  ATTENTION + transport input all
+  ATTENTION - service password-encryption
+  ATTENTION - no ip http server
+  ATTENTION - transport input ssh
+  --- baseline/edge-sw01
+  +++ current/edge-sw01
+  @@ -4,3 +4,2 @@
+   service timestamps log datetime msec
+  -service password-encryption
+   !
+  @@ -8,2 +7,3 @@
+   !
+  +enable password <redacted>
+   enable secret 9 <redacted>
+  @@ -11,5 +11,6 @@
+   username netops privilege 15 secret 9 <redacted>
+  +username tempvendor privilege 15 password 0 <redacted>
+   !
+   ip ssh version 2
+  -no ip http server
+  +ip http server
+   !
+  @@ -25,2 +26,3 @@
+   snmp-server community <redacted> RO
+  +snmp-server community public RO
+   !
+  @@ -35,3 +37,3 @@
+   line vty 5 15
+  - transport input ssh
+  + transport input all
+    login local
+fw-01: unchanged

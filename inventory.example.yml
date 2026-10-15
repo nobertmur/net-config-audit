@@ -1,0 +1,19 @@
+---
+# Example inventory for `configaudit collect`. Addresses are documentation ranges (RFC 5737).
+# Credentials are NOT stored here: each device names two environment variables that you export before running.
+devices:
+  - name: edge-sw01
+    host: 192.0.2.10
+    device_type: cisco_ios
+    username_env: NETAUDIT_USER
+    password_env: NETAUDIT_PASS
+  - name: edge-rtr02
+    host: 192.0.2.11
+    device_type: mikrotik_routeros
+    username_env: NETAUDIT_USER
+    password_env: NETAUDIT_PASS
+  - name: fw-01
+    host: 192.0.2.12
+    device_type: fortinet
+    username_env: NETAUDIT_USER
+    password_env: NETAUDIT_PASS

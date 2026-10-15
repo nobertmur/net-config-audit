@@ -1,0 +1,65 @@
+---
+# Starter rules, not a vendor benchmark. Confirm option names against your FortiOS version.
+- id: FG-001
+  title: Strong crypto enabled
+  severity: high
+  vendors: [fortinet]
+  check: must_match
+  pattern: '^\s*set strong-crypto enable'
+  remediation: "config system global / set strong-crypto enable"
+
+- id: FG-002
+  title: Administrator lockout threshold of 5 or fewer
+  severity: medium
+  vendors: [fortinet]
+  check: must_match
+  pattern: '^\s*set admin-lockout-threshold [1-5]\s*$'
+  remediation: "config system global / set admin-lockout-threshold 3"
+
+- id: FG-003
+  title: Telnet administration disabled
+  severity: high
+  vendors: [fortinet]
+  check: must_not_match
+  pattern: '^\s*set admin-telnet enable'
+  remediation: "config system global / set admin-telnet disable"
+
+- id: FG-004
+  title: Administrator idle timeout of 10 minutes or less
+  severity: medium
+  vendors: [fortinet]
+  check: must_match
+  pattern: '^\s*set admintimeout (?:[1-9]|10)\s*$'
+  remediation: "config system global / set admintimeout 10"
+
+- id: FG-005
+  title: NTP sync enabled
+  severity: medium
+  vendors: [fortinet]
+  check: must_match
+  pattern: '^\s*set ntpsync enable'
+  remediation: "config system ntp / set ntpsync enable"
+
+- id: FG-006
+  title: No telnet on interface management access
+  severity: high
+  vendors: [fortinet]
+  check: must_not_match
+  pattern: '^\s*set allowaccess .*\btelnet\b'
+  remediation: "set allowaccess ping https ssh (remove telnet)"
+
+- id: FG-007
+  title: No plain HTTP on interface management access
+  severity: medium
+  vendors: [fortinet]
+  check: must_not_match
+  pattern: '^\s*set allowaccess .*\bhttp\b'
+  remediation: "set allowaccess ping https ssh (remove http)"
+
+- id: FG-008
+  title: Pre-login banner enabled
+  severity: low
+  vendors: [fortinet]
+  check: must_match
+  pattern: '^\s*set pre-login-banner enable'
+  remediation: "config system global / set pre-login-banner enable"

@@ -1,0 +1,50 @@
+---
+# Starter rules, not a vendor benchmark. A RouterOS export lists only non-default values, so a service that
+# is enabled by default appears as compliant only when the export contains its "disabled=yes" line.
+- id: MT-001
+  title: Telnet service disabled
+  severity: high
+  vendors: [mikrotik_routeros]
+  check: must_match
+  pattern: '^set telnet disabled=yes'
+  remediation: "/ip service set telnet disabled=yes"
+
+- id: MT-002
+  title: FTP service disabled
+  severity: high
+  vendors: [mikrotik_routeros]
+  check: must_match
+  pattern: '^set ftp disabled=yes'
+  remediation: "/ip service set ftp disabled=yes"
+
+- id: MT-003
+  title: Unencrypted web service disabled
+  severity: medium
+  vendors: [mikrotik_routeros]
+  check: must_match
+  pattern: '^set www disabled=yes'
+  remediation: "/ip service set www disabled=yes"
+
+- id: MT-004
+  title: Plain API service disabled
+  severity: medium
+  vendors: [mikrotik_routeros]
+  check: must_match
+  pattern: '^set api disabled=yes'
+  remediation: "/ip service set api disabled=yes"
+
+- id: MT-005
+  title: Input chain has a drop rule
+  severity: high
+  vendors: [mikrotik_routeros]
+  check: must_match
+  pattern: '^add (?=.*action=drop)(?=.*chain=input)'
+  remediation: "/ip firewall filter add chain=input action=drop (after accept rules for management)"
+
+- id: MT-006
+  title: NTP client enabled
+  severity: medium
+  vendors: [mikrotik_routeros]
+  check: must_match
+  pattern: '^/system ntp client\nset enabled=yes'
+  remediation: "/system ntp client set enabled=yes"

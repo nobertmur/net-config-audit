@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "net-config-audit"
+version = "0.1.0"
+description = "Collect, redact, audit and diff network device configurations (Cisco IOS, MikroTik RouterOS, Fortinet)"
+requires-python = ">=3.10"
+dependencies = ["PyYAML>=6"]
+
+[project.optional-dependencies]
+collect = ["netmiko>=4"]
+
+[project.scripts]
+configaudit = "configaudit.cli:main"
+
+[tool.setuptools]
+packages = ["configaudit"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]

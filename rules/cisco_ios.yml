@@ -1,0 +1,82 @@
+---
+# Starter rules, not a CIS benchmark. Tune them to your own standards.
+- id: CISCO-001
+  title: SSH version 2 enforced
+  severity: high
+  vendors: [cisco_ios]
+  check: must_match
+  pattern: '^ip ssh version 2\s*$'
+  remediation: "ip ssh version 2"
+
+- id: CISCO-002
+  title: VTY lines accept SSH only
+  severity: high
+  vendors: [cisco_ios]
+  check: must_match
+  block: '^line vty'
+  pattern: '^\s*transport input ssh\s*$'
+  remediation: "line vty 0 15 / transport input ssh"
+
+- id: CISCO-003
+  title: No default SNMP community strings
+  severity: high
+  vendors: [cisco_ios]
+  check: must_not_match
+  pattern: '^snmp-server community (public|private)\b'
+  remediation: "no snmp-server community public ; use SNMPv3 or a long random community"
+
+- id: CISCO-004
+  title: Password encryption service enabled
+  severity: medium
+  vendors: [cisco_ios]
+  check: must_match
+  pattern: '^service password-encryption\s*$'
+  remediation: "service password-encryption"
+
+- id: CISCO-005
+  title: No cleartext enable password
+  severity: medium
+  vendors: [cisco_ios]
+  check: must_not_match
+  pattern: '^enable password\b'
+  remediation: "no enable password ; enable secret 9 <hash>"
+
+- id: CISCO-006
+  title: NTP server configured
+  severity: medium
+  vendors: [cisco_ios]
+  check: must_match
+  pattern: '^ntp server \S+'
+  remediation: "ntp server <address>"
+
+- id: CISCO-007
+  title: Remote syslog host configured
+  severity: medium
+  vendors: [cisco_ios]
+  check: must_match
+  pattern: '^logging (host )?\d+\.\d+\.\d+\.\d+'
+  remediation: "logging host <address>"
+
+- id: CISCO-008
+  title: HTTP server disabled
+  severity: medium
+  vendors: [cisco_ios]
+  check: must_match
+  pattern: '^no ip http server\s*$'
+  remediation: "no ip http server"
+
+- id: CISCO-009
+  title: Login banner present
+  severity: low
+  vendors: [cisco_ios]
+  check: must_match
+  pattern: '^banner (login|motd)\b'
+  remediation: "banner login ^ Authorised use only ^"
+
+- id: CISCO-010
+  title: Log timestamps enabled
+  severity: low
+  vendors: [cisco_ios]
+  check: must_match
+  pattern: '^service timestamps log datetime'
+  remediation: "service timestamps log datetime msec"
